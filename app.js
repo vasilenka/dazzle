@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 
-require('./database/connect')
+const models = require('./models/__index')
 
 const app = express()
 
