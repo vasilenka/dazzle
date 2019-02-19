@@ -7,7 +7,7 @@
 let app = require('../app');
 let debug = require('debug')('ucp:server');
 let http = require('http');
-const models = require('./../models/__index');
+const models = require('./../models/index');
 
 /**
  * Get port from environment and store in Express.
