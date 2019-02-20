@@ -8,17 +8,33 @@ route.get('/', (req, res) => {
       include: [ User ]
     })
     .then(posts => {
-      res.status(200).json({
-        hello: 'POSTS!',
-        posts,
-      })
+      res.status(200).json(posts)
     })
     .catch(err => console.log(err))
 
 })
 
-route.post('/', (req, res) => {
+route.get('/:id', (req, res) => {
 
+  let id = req.params.id
+
+  Post.findByPk(id, {
+      include: [ User ]
+    })
+    .then(post => {
+      if(!post) {
+        res.status(404).send()
+      }
+      res.status(200).json(post)
+    })
+    .catch(err => {
+      res.status(500).send()
+      console.log(err)
+    })
+
+})
+
+route.post('/', (req, res) => {
   let {title, body, UserId, } = req.body
 
   let post = {
@@ -35,7 +51,10 @@ route.post('/', (req, res) => {
       res.status(200).json(post)
     }
     )
-    .catch(err => console.log(err))
+    .catch(err => {
+      res.status(500).json(err)
+      console.log('ERROR: ', err)
+    })
 
 })
 

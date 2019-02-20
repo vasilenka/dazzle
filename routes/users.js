@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const { User } = require('./../models');
+const express = require('express')
+const router = express.Router()
+const { User } = require('./../models')
 
-router.get('/', function(req, res, next) {
+router.get('/', (req, res) => {
+
   User.findAll()
     .then(users => {
       res.status(200).json(users)
@@ -10,6 +11,20 @@ router.get('/', function(req, res, next) {
     .catch(err => {
       console.log(err)
     })
+
+});
+
+router.get('/:id', (req, res) => {
+  let id = req.params.id
+
+  User.findByPk(id)
+    .then(user => {
+      res.status(200).json(user)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+
 });
 
 router.post('/', (req, res) => {
@@ -34,4 +49,4 @@ router.post('/', (req, res) => {
 
 })
 
-module.exports = router;
+module.exports = router
